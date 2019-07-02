@@ -39,7 +39,7 @@ module.exports = merge(base, {
             }
           },
           {
-            loader: 'sass-loader',
+            loader: 'fast-sass-loader',
             options: {}
           }
         ]

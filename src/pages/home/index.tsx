@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import React from 'react'
 
 import { State } from '../../store/'
+import './index.scss'
 
 @(withRouter as any)
 @((connect as any)((state: State) => ({
