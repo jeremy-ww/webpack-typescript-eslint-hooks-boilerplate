@@ -1,6 +1,17 @@
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
+const minimist = require('minimist')
+const webpack = require('webpack')
+const path = require('path')
+const fs = require('fs')
 
+const VENDOR_MANIFEST = path.resolve(__dirname, '../dist/vendor-manifest.json')
+const VENDOR_FILE = path.resolve(__dirname, '../dist/vendor.dll.js')
+const argv = minimist(process.argv.slice(2))
+const isDLLLibraryAvailable = argv['disable-dll']
+  ? false
+  : fs.existsSync(VENDOR_MANIFEST)
 const base = require('./webpack.base')
 
 /** @type {import('webpack').Configuration} */
@@ -82,8 +93,16 @@ module.exports = merge(base, {
     usedExports: true
   },
   plugins: [
+    isDLLLibraryAvailable &&
+      new webpack.DllReferencePlugin({
+        manifest: require(VENDOR_MANIFEST)
+      }),
     new HtmlWebpackPlugin({
       template: './static/index.html'
-    })
-  ]
+    }),
+    isDLLLibraryAvailable &&
+      new AddAssetHtmlPlugin({
+        filepath: VENDOR_FILE
+      })
+  ].filter(Boolean)
 })
