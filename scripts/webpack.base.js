@@ -17,6 +17,10 @@ module.exports = {
       '@': path.resolve(__dirname, '../src')
     }
   },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },
   module: {
     rules: [
       {

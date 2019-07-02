@@ -12,5 +12,24 @@
 
   <body>
     <div id="app"></div>
+    <% if (process.env.NODE_ENV === 'development') { %>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <% } %> <% if (process.env.NODE_ENV === 'production') { %>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.production.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <% } %>
   </body>
 </html>
