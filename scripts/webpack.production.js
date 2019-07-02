@@ -35,15 +35,12 @@ module.exports = merge(base, {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
               importLoaders: 1
             }
           },
           {
             loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
+            options: {}
           }
         ]
       },
