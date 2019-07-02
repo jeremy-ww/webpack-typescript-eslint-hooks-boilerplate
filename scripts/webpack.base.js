@@ -23,22 +23,32 @@ module.exports = {
         enforce: 'pre',
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'eslint-loader',
-          options: {
-            cache: true
+        use: [
+          {
+            loader: 'thread-loader'
+          },
+          {
+            loader: 'eslint-loader',
+            options: {
+              cache: true
+            }
           }
-        }
+        ]
       },
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true
+        use: [
+          {
+            loader: 'thread-loader'
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
           }
-        }
+        ]
       }
     ]
   },
