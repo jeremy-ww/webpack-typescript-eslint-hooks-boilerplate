@@ -1,3 +1,4 @@
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -56,5 +57,14 @@ module.exports = {
       }
     ]
   },
-  plugins: [new webpack.EnvironmentPlugin({})]
+  plugins: [
+    new webpack.EnvironmentPlugin({}),
+    new ScriptExtHtmlWebpackPlugin({
+      custom: {
+        test: /\.js$/,
+        attribute: 'crossorigin',
+        value: 'anonymous'
+      }
+    })
+  ]
 }
