@@ -130,7 +130,7 @@ module.exports = merge(base, {
         }
       }),
       new OptimizeCssnanoPlugin({
-        sourceMap: true,
+        sourceMap: false,
         cssnanoOptions: {
           safe: true,
           autoprefixer: {
