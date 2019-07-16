@@ -108,7 +108,8 @@ module.exports = merge(base, {
       new TerserPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true,
+        
+        : true,
         terserOptions: {
           parse: {
             ecma: 8
@@ -130,7 +131,7 @@ module.exports = merge(base, {
         }
       }),
       new OptimizeCssnanoPlugin({
-        sourceMap: true,
+        sourceMap: false,
         cssnanoOptions: {
           safe: true,
           autoprefixer: {
