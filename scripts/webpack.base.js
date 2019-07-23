@@ -1,3 +1,4 @@
+// @ts-check
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')

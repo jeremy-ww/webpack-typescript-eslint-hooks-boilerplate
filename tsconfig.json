@@ -8,6 +8,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "incremental": true,
     "skipLibCheck": true,
     "declaration": true,

@@ -1,3 +1,4 @@
+// @ts-check
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
@@ -13,6 +14,19 @@ const isDLLLibraryAvailable = argv['disable-dll']
   ? false
   : fs.existsSync(VENDOR_MANIFEST)
 const base = require('./webpack.base')
+
+class ClearWebpackDevServerMessagePlugin {
+  /** @param {import('webpack').Compiler} compiler */
+  apply(compiler) {
+    compiler.hooks.beforeCompile.tapAsync(
+      'ClearWebpackDevServerMessagePlugin',
+      (params, callback) => {
+        console.clear()
+        callback()
+      }
+    )
+  }
+}
 
 /** @type {import('webpack').Configuration} */
 module.exports = merge(base, {
@@ -76,8 +90,7 @@ module.exports = merge(base, {
   devServer: {
     hot: true,
     port: 4000,
-    progress: true,
-    clientLogLevel: 'warn',
+    clientLogLevel: 'warning',
     disableHostCheck: true,
     historyApiFallback: {
       disableDotRule: true
@@ -93,8 +106,10 @@ module.exports = merge(base, {
     usedExports: true
   },
   plugins: [
+    new ClearWebpackDevServerMessagePlugin(),
     isDLLLibraryAvailable &&
       new webpack.DllReferencePlugin({
+        context: __dirname,
         manifest: require(VENDOR_MANIFEST)
       }),
     new HtmlWebpackPlugin({

@@ -1,3 +1,4 @@
+// @ts-check
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin

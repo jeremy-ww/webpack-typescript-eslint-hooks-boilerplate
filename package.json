@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server --config scripts/webpack.development.js --disable-dll",
+    "start": "webpack-dev-server --progress --config scripts/webpack.development.js --disable-dll",
     "build": "webpack --progress --config scripts/webpack.production.js",
     "build:dll": "webpack --progress --config scripts/webpack.dll.js",
     "build:report": "npm run build -- --report",
