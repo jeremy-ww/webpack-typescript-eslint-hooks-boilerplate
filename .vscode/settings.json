@@ -1,7 +1,7 @@
 {
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    { "language": "typescript", "autoFix": true },
-    { "language": "typescriptreact", "autoFix": true }
-  ]
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.referencesCodeLens.enabled": true,
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "editor.formatOnSave": true
 }
