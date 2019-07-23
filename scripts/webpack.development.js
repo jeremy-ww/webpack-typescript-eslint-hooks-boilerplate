@@ -109,7 +109,7 @@ module.exports = merge(base, {
     new ClearWebpackDevServerMessagePlugin(),
     isDLLLibraryAvailable &&
       new webpack.DllReferencePlugin({
-        context: __dirname,
+        context: path.join(__dirname, '..'),
         manifest: require(VENDOR_MANIFEST)
       }),
     new HtmlWebpackPlugin({
