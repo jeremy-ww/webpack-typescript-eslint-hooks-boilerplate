@@ -32,7 +32,8 @@ module.exports = {
           {
             loader: 'eslint-loader',
             options: {
-              cache: true
+              // Since eslint-loader's cache cause a lot of error, disable it.
+              cache: false
             }
           }
         ]
