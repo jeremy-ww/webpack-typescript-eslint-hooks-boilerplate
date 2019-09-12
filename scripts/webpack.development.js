@@ -1,6 +1,9 @@
 // @ts-check
+const { prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const clearConsole = require('react-dev-utils/clearConsole')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const chalk = require('chalk').default
 const merge = require('webpack-merge')
 const minimist = require('minimist')
 const webpack = require('webpack')
@@ -15,14 +18,30 @@ const isDLLLibraryAvailable = argv['disable-dll']
   : fs.existsSync(VENDOR_MANIFEST)
 const base = require('./webpack.base')
 
+function printInstructions(urls) {
+  console.log()
+  console.log(chalk.bold(chalk.green(`You can now view it in the browser.`)))
+  console.log()
+
+  console.log(
+    `  ${chalk.bold('Local:')}            ${urls.localUrlForTerminal}`
+  )
+  console.log(`  ${chalk.bold('On Your Network:')}  ${urls.lanUrlForTerminal}`)
+  console.log()
+}
+
 class ClearWebpackDevServerMessagePlugin {
   /** @param {import('webpack').Compiler} compiler */
   apply(compiler) {
-    compiler.hooks.beforeCompile.tapAsync(
+    compiler.hooks.done.tapAsync(
       'ClearWebpackDevServerMessagePlugin',
-      (params, callback) => {
-        console.clear()
-        callback()
+      async (params, callback) => {
+        clearConsole()
+        await callback()
+        printInstructions(
+          // @ts-ignore
+          prepareUrls('http', '0.0.0.0', compiler.options.devServer.port)
+        )
       }
     )
   }
@@ -86,6 +105,9 @@ module.exports = merge(base, {
         ]
       }
     ]
+  },
+  resolve: {
+    alias: { 'react-dom': '@hot-loader/react-dom' }
   },
   devServer: {
     hot: true,

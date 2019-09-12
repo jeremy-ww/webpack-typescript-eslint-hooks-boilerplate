@@ -1,24 +1,13 @@
-import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { connect } from 'react-redux'
-import React from 'react'
+import React, { useReducer } from 'react'
 
-import { State } from '../../store/'
+import { initialState, reducer } from '../../store/'
 import './index.scss'
 
-@(withRouter as any)
-@((connect as any)((state: State) => ({
-  user: state.user
-})))
-export default class Home extends React.Component<HomeProps> {
-  render() {
-    return (
-      <div className="hello">
-        Hello, {this.props.user.name} <small>- ({process.env.NODE_ENV})</small>
-      </div>
-    )
-  }
-}
-
-export interface HomeProps extends RouteComponentProps {
-  user: State['user']
+export default function Home() {
+  const [state] = useReducer(reducer, initialState)
+  return (
+    <div className="hello">
+      Hello, {state.user} <small>- ({process.env.NODE_ENV})</small>
+    </div>
+  )
 }
