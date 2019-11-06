@@ -18,11 +18,7 @@ module.exports = merge(base, {
   bail: true,
   output: {
     filename: 'assets/js/[name].[contenthash:8].js',
-    /**
-     * webpack@4 如果同时使用 `chunkFilename` 与 `runtimeChunk` 会导致 `filename` 失效
-     * @see {@link https://github.com/webpack/webpack/issues/6604}.
-     */
-    chunkFilename: 'assets/js/[name].[chunkhash:8].js'
+    chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js'
   },
   devtool: 'hidden-source-map',
   module: {
@@ -80,55 +76,34 @@ module.exports = merge(base, {
     ]
   },
   optimization: {
+    moduleIds: 'hashed',
+    /**
+     * @see https://github.com/webpack/webpack/blob/master/examples/common-chunk-and-vendor-chunk/webpack.config.js
+     */
     splitChunks: {
       cacheGroups: {
         vendors: {
           name: 'vendors',
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          chunks: 'initial'
+          test: /node_modules/,
+          priority: 10,
+          chunks: 'initial',
+          enforce: true
         },
         common: {
           name: 'common',
           minChunks: 2,
-          priority: -20,
           chunks: 'initial',
           reuseExistingChunk: true
         }
       },
-      minSize: 30000,
-      minChunks: 1,
       maxAsyncRequests: Infinity,
-      automaticNameDelimiter: '~',
-      maxInitialRequests: Infinity,
-      name: true
+      maxInitialRequests: Infinity
     },
     mergeDuplicateChunks: true,
     runtimeChunk: true,
     minimizer: [
       new TerserPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-        terserOptions: {
-          parse: {
-            ecma: 8
-          },
-          compress: {
-            ecma: 5,
-            warnings: false,
-            comparisons: false,
-            inline: 2
-          },
-          mangle: {
-            safari10: true
-          },
-          output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true
-          }
-        }
+        sourceMap: true
       }),
       new OptimizeCssnanoPlugin({
         sourceMap: false,

@@ -32,7 +32,6 @@ module.exports = {
           {
             loader: 'eslint-loader',
             options: {
-              // Since eslint-loader's cache cause a lot of error, disable it.
               cache: false
             }
           }
@@ -46,10 +45,7 @@ module.exports = {
             loader: 'thread-loader'
           },
           {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true
-            }
+            loader: 'babel-loader'
           }
         ]
       }
