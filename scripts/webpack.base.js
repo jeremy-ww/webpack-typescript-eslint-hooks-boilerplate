@@ -1,5 +1,7 @@
 // @ts-check
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -52,6 +54,13 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: 'static',
+        to: '.'
+      }
+    ]),
     new webpack.EnvironmentPlugin({}),
     new ScriptExtHtmlWebpackPlugin({
       custom: {

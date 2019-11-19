@@ -3,9 +3,8 @@ const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { GenerateSW } = require('workbox-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const merge = require('webpack-merge')
 
@@ -118,13 +117,6 @@ module.exports = merge(base, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: 'static',
-        to: '.'
-      }
-    ]),
     new MiniCssExtractPlugin({
       filename: 'assets/css/[name].[contenthash:8].css',
       chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css'
@@ -144,6 +136,7 @@ module.exports = merge(base, {
         minifyURLs: true
       }
     }),
-    report && new BundleAnalyzerPlugin()
+    report && new BundleAnalyzerPlugin(),
+    new GenerateSW()
   ].filter(Boolean)
 })

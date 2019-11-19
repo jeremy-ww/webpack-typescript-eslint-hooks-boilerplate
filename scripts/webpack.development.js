@@ -3,6 +3,7 @@ const { prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const clearConsole = require('react-dev-utils/clearConsole')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { GenerateSW } = require('workbox-webpack-plugin')
 const chalk = require('chalk').default
 const merge = require('webpack-merge')
 const minimist = require('minimist')
@@ -146,6 +147,7 @@ module.exports = merge(base, {
     isDLLLibraryAvailable &&
       new AddAssetHtmlPlugin({
         filepath: VENDOR_FILE
-      })
+      }),
+    new GenerateSW()
   ].filter(Boolean)
 })
