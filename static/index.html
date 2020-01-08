@@ -9,8 +9,34 @@
     <link rel="manifest" href="/manifest.json" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <% if (process.env.NODE_ENV === 'production') { %>
+    <script
+      crossorigin="anonymous"
+      src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://unpkg.com/react-router-dom@5.1.2/umd/react-router-dom.min.js"
+    ></script>
+    <% } else { %>
+    <script
+      crossorigin="anonymous"
+      src="https://unpkg.com/react@16.12.0/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://unpkg.com/react-router-dom@5.1.2/umd/react-router-dom.js"
+    ></script>
+    <% } %>
   </head>
-
   <body>
     <div id="app"></div>
   </body>

@@ -21,6 +21,18 @@ module.exports = {
       '@': path.resolve(__dirname, '../src')
     }
   },
+  externals: {
+    react: 'React',
+    // 之所以不在 base 部分添加 react-dom 的 external，是因为 react-hot-loader 需要使用 alias 的方式替代 react-dom。示例：
+    // ```js
+    // resolve: {
+    //   alias: { 'react-dom': '@hot-loader/react-dom' }
+    // }
+    // ```
+    // 而 webpack 似乎 externals 的优先级要比 alias 高，因为 react-dom 的 externals 只能在 webpack.production.js 中设置
+    // 'react-dom': 'ReactDOM',
+    'react-router-dom': 'ReactRouterDOM'
+  },
   module: {
     rules: [
       {

@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const path = require('path')
 
 const VENDOR_MANIFEST = path.resolve(__dirname, '../dist/vendor-manifest.json')
+// @ts-ignore
 const package = require('../package.json')
 
 delete package.dependencies['patch-package']

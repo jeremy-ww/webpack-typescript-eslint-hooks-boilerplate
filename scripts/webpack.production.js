@@ -20,6 +20,9 @@ module.exports = merge(base, {
     chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js'
   },
   devtool: 'hidden-source-map',
+  externals: {
+    'react-dom': 'ReactDOM'
+  },
   module: {
     rules: [
       {

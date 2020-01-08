@@ -4,10 +4,10 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const clearConsole = require('react-dev-utils/clearConsole')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { GenerateSW } = require('workbox-webpack-plugin')
-const chalk = require('chalk').default
 const merge = require('webpack-merge')
 const minimist = require('minimist')
 const webpack = require('webpack')
+const chalk = require('chalk')
 const path = require('path')
 const fs = require('fs')
 
