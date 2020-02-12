@@ -17,20 +17,22 @@ const App = hot(function() {
 ReactDOM.render(<App />, document.getElementById('app'))
 
 if ('serviceWorker' in navigator) {
-  const wb = new Workbox('service-worker.js')
-  wb.addEventListener('waiting', () => {
-    if (window.confirm('New service worker available, Refresh now?')) {
-      wb.addEventListener('controlling', () => {
-        window.location.reload()
+  window.addEventListener('load', () => {
+    const wb = new Workbox('service-worker.js')
+    wb.addEventListener('waiting', () => {
+      if (window.confirm('New service worker available, Refresh now?')) {
+        wb.addEventListener('controlling', () => {
+          window.location.reload()
+        })
+        wb.messageSW({ type: 'SKIP_WAITING' })
+      }
+    })
+    wb.register()
+      .then(registration => {
+        console.log('💖 SW registered:', registration)
       })
-      wb.messageSW({ type: 'SKIP_WAITING' })
-    }
+      .catch(registrationError => {
+        console.log('🙈 SW registration failed:', registrationError)
+      })
   })
-  wb.register()
-    .then(registration => {
-      console.log('💖 SW registered:', registration)
-    })
-    .catch(registrationError => {
-      console.log('🙈 SW registration failed:', registrationError)
-    })
 }

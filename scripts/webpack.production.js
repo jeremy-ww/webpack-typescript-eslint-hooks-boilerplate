@@ -140,6 +140,17 @@ module.exports = merge(base, {
       }
     }),
     report && new BundleAnalyzerPlugin(),
-    new GenerateSW()
+    new GenerateSW({
+      inlineWorkboxRuntime: true,
+      runtimeCaching: [
+        {
+          handler: 'CacheFirst',
+          /**
+           * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
+           */
+          urlPattern: new RegExp('https://unpkg\\.com/.*')
+        }
+      ]
+    })
   ].filter(Boolean)
 })
