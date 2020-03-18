@@ -46,7 +46,7 @@ module.exports = {
           {
             loader: 'eslint-loader',
             options: {
-              cache: false
+              cache: true
             }
           }
         ]
@@ -59,7 +59,10 @@ module.exports = {
             loader: 'thread-loader'
           },
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              cache: true
+            }
           }
         ]
       }
