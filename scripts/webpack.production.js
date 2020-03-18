@@ -78,7 +78,6 @@ module.exports = merge(base, {
     ]
   },
   optimization: {
-    moduleIds: 'hashed',
     /**
      * @see https://github.com/webpack/webpack/blob/master/examples/common-chunk-and-vendor-chunk/webpack.config.js
      */

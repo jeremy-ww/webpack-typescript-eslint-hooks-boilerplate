@@ -6,7 +6,10 @@ module.exports = {
       {
         modules: false,
         useBuiltIns: 'usage',
-        corejs: 3
+        corejs: 3,
+        targets: {
+          browsers: ['Chrome >= 70']
+        }
       }
     ],
     '@babel/preset-typescript'

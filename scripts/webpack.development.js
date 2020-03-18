@@ -1,22 +1,11 @@
 // @ts-check
 const { prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const clearConsole = require('react-dev-utils/clearConsole')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { GenerateSW } = require('workbox-webpack-plugin')
 const merge = require('webpack-merge')
-const minimist = require('minimist')
-const webpack = require('webpack')
 const chalk = require('chalk')
-const path = require('path')
-const fs = require('fs')
 
-const VENDOR_MANIFEST = path.resolve(__dirname, '../dist/vendor-manifest.json')
-const VENDOR_FILE = path.resolve(__dirname, '../dist/vendor.dll.js')
-const argv = minimist(process.argv.slice(2))
-const isDLLLibraryAvailable = argv['disable-dll']
-  ? false
-  : fs.existsSync(VENDOR_MANIFEST)
 const base = require('./webpack.base')
 
 function printInstructions(urls) {
@@ -136,18 +125,9 @@ module.exports = merge(base, {
   },
   plugins: [
     new ClearWebpackDevServerMessagePlugin(),
-    isDLLLibraryAvailable &&
-      new webpack.DllReferencePlugin({
-        context: path.join(__dirname, '..'),
-        manifest: require(VENDOR_MANIFEST)
-      }),
     new HtmlWebpackPlugin({
       template: './static/index.html'
     }),
-    isDLLLibraryAvailable &&
-      new AddAssetHtmlPlugin({
-        filepath: VENDOR_FILE
-      }),
     new GenerateSW()
   ].filter(Boolean)
 })
