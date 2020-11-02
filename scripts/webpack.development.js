@@ -127,7 +127,7 @@ module.exports = merge(base, {
     new ClearWebpackDevServerMessagePlugin(),
     new HtmlWebpackPlugin({
       template: './static/index.html'
-    }),
-    new GenerateSW()
+    })
+    // new GenerateSW()
   ].filter(Boolean)
 })

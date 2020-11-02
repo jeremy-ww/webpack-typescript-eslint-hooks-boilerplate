@@ -12,6 +12,10 @@
     "incremental": true,
     "skipLibCheck": true,
     "declaration": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }
