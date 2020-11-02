@@ -35,6 +35,7 @@ module.exports = {
   },
   module: {
     rules: [
+      // 建议在非 dev 的环节开启
       // {
       //   enforce: 'pre',
       //   test: /\.(t|j)sx?$/,
