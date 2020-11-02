@@ -1,7 +1,6 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "javascript.referencesCodeLens.enabled": true,
-  "prettier.singleQuote": true,
-  "prettier.semi": false,
-  "editor.formatOnSave": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "javascript.referencesCodeLens.enabled": true
 }

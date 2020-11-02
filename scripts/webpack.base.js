@@ -35,22 +35,19 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(t|j)sx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'thread-loader'
-          },
-          {
-            loader: 'eslint-loader',
-            options: {
-              cache: true
-            }
-          }
-        ]
-      },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.(t|j)sx?$/,
+      //   exclude: /node_modules/,
+      //   use: [
+      //     {
+      //       loader: 'thread-loader'
+      //     },
+      //     {
+      //       loader: 'eslint-loader'
+      //     }
+      //   ]
+      // },
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
@@ -59,10 +56,7 @@ module.exports = {
             loader: 'thread-loader'
           },
           {
-            loader: 'babel-loader',
-            options: {
-              cache: true
-            }
+            loader: 'babel-loader'
           }
         ]
       }

@@ -103,9 +103,7 @@ module.exports = merge(base, {
     mergeDuplicateChunks: true,
     runtimeChunk: true,
     minimizer: [
-      new TerserPlugin({
-        sourceMap: true
-      }),
+      new TerserPlugin(),
       new OptimizeCssnanoPlugin({
         sourceMap: false,
         cssnanoOptions: {

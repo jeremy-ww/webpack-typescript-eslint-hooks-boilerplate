@@ -99,12 +99,12 @@ module.exports = merge(base, {
   resolve: {
     alias: { 'react-dom': '@hot-loader/react-dom' }
   },
-  cache: {
-    type: 'filesystem',
-    buildDependencies: {
-      config: [__filename]
-    }
-  },
+  // cache: {
+  //   type: 'filesystem',
+  //   buildDependencies: {
+  //     config: [__filename]
+  //   }
+  // },
   devServer: {
     hot: true,
     port: 4000,
