@@ -1,14 +1,21 @@
-// @ts-check
+/* eslint-disable @typescript-eslint/no-var-requires */
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const { prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
 const clearConsole = require('react-dev-utils/clearConsole')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { GenerateSW } = require('workbox-webpack-plugin')
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const chalk = require('chalk')
+
+type Configuration = import('webpack').Configuration
+type Compiler = import('webpack').Compiler
 
 const base = require('./webpack.base')
 
-function printInstructions(urls) {
+function printInstructions(urls: {
+  localUrlForTerminal: string
+  lanUrlForTerminal: string
+}) {
   console.log()
   console.log(chalk.bold(chalk.green(`You can now view it in the browser.`)))
   console.log()
@@ -21,8 +28,7 @@ function printInstructions(urls) {
 }
 
 class ClearWebpackDevServerMessagePlugin {
-  /** @param {import('webpack').Compiler} compiler */
-  apply(compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.done.tapAsync(
       'ClearWebpackDevServerMessagePlugin',
       async (params, callback) => {
@@ -37,8 +43,8 @@ class ClearWebpackDevServerMessagePlugin {
   }
 }
 
-/** @type {import('webpack').Configuration} */
-module.exports = merge(base, {
+// @ts-ignore
+module.exports = merge<import('webpack').Configuration>(base, {
   mode: 'development',
   devtool: 'eval-source-map',
   module: {
@@ -47,8 +53,7 @@ module.exports = merge(base, {
         test: /\.(sa|sc|c)ss$/,
         use: [
           {
-            loader: 'style-loader',
-            options: {}
+            loader: 'style-loader'
           },
           {
             loader: 'css-loader',
@@ -61,43 +66,8 @@ module.exports = merge(base, {
             options: {}
           }
         ]
-      },
-      {
-        test: /\.(eot|otf|ttf|woff|woff2)(\?.*)?$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: 'assets/fonts/[path][name].[ext]'
-          }
-        }
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|webp)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: 'assets/images/[path][name].[ext]',
-              limit: 5000
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(svg)(\?.*)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/images/[path][name].[ext]'
-            }
-          }
-        ]
       }
     ]
-  },
-  resolve: {
-    alias: { 'react-dom': '@hot-loader/react-dom' }
   },
   // cache: {
   //   type: 'filesystem',
@@ -120,14 +90,13 @@ module.exports = merge(base, {
       ignored: ['../node_modules/']
     }
   },
-  optimization: {
-    usedExports: true
-  },
   plugins: [
     new ClearWebpackDevServerMessagePlugin(),
     new HtmlWebpackPlugin({
+      title: require('../package.json').name,
       template: './static/index.html'
-    })
-    // new GenerateSW()
+    }),
+    new ReactRefreshWebpackPlugin(),
+    false && new GenerateSW()
   ].filter(Boolean)
 })

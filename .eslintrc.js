@@ -31,10 +31,13 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
+        endOfLine: 'auto',
         singleQuote: true,
-        semi: false
+        semi: false,
+        trailingComma: 'none'
       }
     ],
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/camelcase': 0,
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-non-null-assertion': 0,

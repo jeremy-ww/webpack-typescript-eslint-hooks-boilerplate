@@ -2,5 +2,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "javascript.referencesCodeLens.enabled": true
+  "javascript.referencesCodeLens.enabled": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint"
 }

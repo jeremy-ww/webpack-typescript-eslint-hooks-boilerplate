@@ -1,7 +1,8 @@
-// @ts-check
+/* eslint-disable @typescript-eslint/no-var-requires */
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { ESBuildPlugin: ESBuildPluginDev } = require('esbuild-loader')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -21,56 +22,52 @@ module.exports = {
       '@': path.resolve(__dirname, '../src')
     }
   },
-  externals: {
-    react: 'React',
-    // 之所以不在 base 部分添加 react-dom 的 external，是因为 react-hot-loader 需要使用 alias 的方式替代 react-dom。示例：
-    // ```js
-    // resolve: {
-    //   alias: { 'react-dom': '@hot-loader/react-dom' }
-    // }
-    // ```
-    // 而 webpack 似乎 externals 的优先级要比 alias 高，因为 react-dom 的 externals 只能在 webpack.production.js 中设置
-    // 'react-dom': 'ReactDOM',
-    'react-router-dom': 'ReactRouterDOM'
-  },
   module: {
     rules: [
-      // 建议在非 dev 的环节开启
-      // {
-      //   enforce: 'pre',
-      //   test: /\.(t|j)sx?$/,
-      //   exclude: /node_modules/,
-      //   use: [
-      //     {
-      //       loader: 'thread-loader'
-      //     },
-      //     {
-      //       loader: 'eslint-loader'
-      //     }
-      //   ]
-      // },
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'thread-loader'
-          },
-          {
-            loader: 'babel-loader'
+            loader: 'esbuild-loader',
+            options: {
+              loader: 'tsx',
+              target: 'es2015',
+              tsconfigRaw: require('../tsconfig.json')
+            }
           }
         ]
+      },
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/static/[hash][ext][query]'
+        }
+      },
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline',
+        generator: {
+          filename: 'assets/static/[hash][ext][query]'
+        }
       }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: 'static',
-        to: '.'
-      }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'static',
+          globOptions: {
+            ignore: ['**/index.html']
+          },
+          to: '.'
+        }
+      ]
+    }),
+    new ESBuildPluginDev(),
     new webpack.EnvironmentPlugin({}),
     new ScriptExtHtmlWebpackPlugin({
       custom: {
