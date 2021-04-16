@@ -24,8 +24,6 @@ function printInstructions(urls: { localUrlForTerminal: string; lanUrlForTermina
   console.log();
 }
 
-console.log(process.env);
-
 class ClearWebpackDevServerMessagePlugin {
   apply(compiler: Compiler) {
     compiler.hooks.done.tapAsync('ClearWebpackDevServerMessagePlugin', async (params, callback) => {
@@ -61,16 +59,19 @@ module.exports = merge<import('webpack').Configuration>(base, {
       },
     ],
   },
-  // cache: {
-  //   type: 'filesystem',
-  //   buildDependencies: {
-  //     config: [__filename]
-  //   }
-  // },
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
   devServer: {
+    hot: true,
     port: 4000,
     clientLogLevel: 'warning',
     disableHostCheck: true,
+    transportMode: 'ws',
+    injectClient: true,
     historyApiFallback: {
       disableDotRule: true,
     },
