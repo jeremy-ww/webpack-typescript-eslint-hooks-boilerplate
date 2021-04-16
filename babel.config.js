@@ -4,12 +4,10 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        modules: false,
+        modules: process.env.NODE_ENV === 'test' ? 'cjs' : false,
         useBuiltIns: 'usage',
         corejs: 3,
-        targets: {
-          browsers: ['Chrome >= 70']
-        }
+        exclude: ['@babel/plugin-transform-regenerator'],
       }
     ],
     '@babel/preset-typescript'
@@ -31,6 +29,16 @@ module.exports = {
         style: 'css'
       },
       'antd'
-    ]
+    ],
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        alias: {
+          src: './src',
+          misc: './misc',
+        },
+      },
+    ],
   ]
 }
