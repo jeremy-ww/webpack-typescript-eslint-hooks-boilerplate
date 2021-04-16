@@ -6,14 +6,13 @@ module.exports = {
       {
         modules: process.env.NODE_ENV === 'test' ? 'cjs' : false,
         useBuiltIns: 'usage',
-        debug: true,
         corejs: 3,
       },
     ],
     '@babel/preset-typescript',
   ],
   plugins: [
-    'react-refresh/babel',
+    process.env.NODE_ENV === 'development' && 'react-refresh/babel',
     /**
      * @see https://github.com/babel/babel/issues/10690#issuecomment-552979676
      */
@@ -41,5 +40,5 @@ module.exports = {
         },
       },
     ],
-  ],
+  ].filter(Boolean),
 };
