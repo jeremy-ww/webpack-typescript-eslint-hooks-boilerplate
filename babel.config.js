@@ -6,11 +6,11 @@ module.exports = {
       {
         modules: process.env.NODE_ENV === 'test' ? 'cjs' : false,
         useBuiltIns: 'usage',
+        debug: true,
         corejs: 3,
-        exclude: ['@babel/plugin-transform-regenerator'],
-      }
+      },
     ],
-    '@babel/preset-typescript'
+    '@babel/preset-typescript',
   ],
   plugins: [
     'react-refresh/babel',
@@ -26,13 +26,11 @@ module.exports = {
       'import',
       {
         libraryName: 'antd',
-        style: 'css'
+        style: 'css',
       },
-      'antd'
+      'antd',
     ],
-    [
-      'babel-plugin-styled-components', { pure: true }
-    ],
+    ['babel-plugin-styled-components', { pure: true }],
     [
       'module-resolver',
       {
@@ -43,5 +41,5 @@ module.exports = {
         },
       },
     ],
-  ]
-}
+  ],
+};

@@ -72,7 +72,9 @@ module.exports = {
         },
       ],
     }),
-    new webpack.EnvironmentPlugin({}),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
+    }),
     new ScriptExtHtmlWebpackPlugin({
       custom: {
         test: /\.js$/,

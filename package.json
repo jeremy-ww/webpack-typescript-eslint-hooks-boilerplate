@@ -1,7 +1,7 @@
 {
   "name": "webpack",
   "scripts": {
-    "start": "webpack serve --progress --config scripts/webpack.development.ts",
+    "start": "NODE_ENV=development webpack serve --progress --config scripts/webpack.development.ts",
     "build": "webpack --progress --config scripts/webpack.production.ts",
     "build:report": "npm run build -- --report",
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js src"

@@ -24,7 +24,6 @@ export default function Home() {
           <small>- ({process.env.NODE_ENV})</small>
         </>
       )}
-      1234s
     </Hello>
   );
 }

@@ -24,6 +24,8 @@ function printInstructions(urls: { localUrlForTerminal: string; lanUrlForTermina
   console.log();
 }
 
+console.log(process.env);
+
 class ClearWebpackDevServerMessagePlugin {
   apply(compiler: Compiler) {
     compiler.hooks.done.tapAsync('ClearWebpackDevServerMessagePlugin', async (params, callback) => {
