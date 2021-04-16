@@ -1,15 +1,19 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Workbox } from 'workbox-window'
+import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 import React from 'react'
 
 import Home from 'src/pages/home'
+import store from 'src/store'
 
 const App = function () {
   return (
-    <Router>
-      <Route path="/" component={Home} />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Route path="/" component={Home} />
+      </Router>
+    </Provider>
   )
 }
 
