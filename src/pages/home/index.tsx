@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getUserAction } from "./store/slice";
-import { RootState } from "src/store/";
-import icon from "src/assets/icon-square-big.png";
-import { Hello } from "./index.css";
+import { getUserAction } from './store/slice';
+import { RootState } from 'src/store/';
+import icon from 'src/assets/icon-square-big.png';
+import { Hello } from './index.css';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -20,10 +20,11 @@ export default function Home() {
         <p>loading...</p>
       ) : (
         <>
-          <img width="20" src={icon} alt="icon" /> Hello, {home.user}{" "}
+          <img width="20" src={icon} alt="icon" /> Hello, {home.user}{' '}
           <small>- ({process.env.NODE_ENV})</small>
         </>
       )}
+      1234s
     </Hello>
   );
 }

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { ESBuildPlugin: ESBuildPluginDev } = require('esbuild-loader')
-const webpack = require('webpack')
-const path = require('path')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { ESBuildPlugin: ESBuildPluginDev } = require('esbuild-loader');
+const webpack = require('webpack');
+const path = require('path');
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -14,13 +14,13 @@ module.exports = {
     filename: 'assets/js/[name].js',
     publicPath: '/',
     crossOriginLoading: 'anonymous',
-    chunkFilename: 'assets/js/[name].chunk.js'
+    chunkFilename: 'assets/js/[name].chunk.js',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
     alias: {
-      'src': path.resolve(__dirname, '../src')
-    }
+      src: path.resolve(__dirname, '../src'),
+    },
   },
   module: {
     rules: [
@@ -28,31 +28,36 @@ module.exports = {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: [
+          // TODO: esbuild with hot reload
+          // {
+          //   use: "esbuild-loader",
+          //   options: {
+          //     loader: "tsx",
+          //     target: "es2015",
+          //     tsconfigRaw: require("../tsconfig.json"),
+          //   },
+          // },
           {
-            loader: 'esbuild-loader',
-            options: {
-              loader: 'tsx',
-              target: 'es2015',
-              tsconfigRaw: require('../tsconfig.json')
-            }
-          }
-        ]
+            loader: require.resolve('babel-loader'),
+            options: {},
+          },
+        ],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/static/[hash][ext][query]'
-        }
+          filename: 'assets/static/[hash][ext][query]',
+        },
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: 'asset/inline',
         generator: {
-          filename: 'assets/static/[hash][ext][query]'
-        }
-      }
-    ]
+          filename: 'assets/static/[hash][ext][query]',
+        },
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -61,19 +66,19 @@ module.exports = {
         {
           from: 'static',
           globOptions: {
-            ignore: ['**/index.html']
+            ignore: ['**/index.html'],
           },
-          to: '.'
-        }
-      ]
+          to: '.',
+        },
+      ],
     }),
     new webpack.EnvironmentPlugin({}),
     new ScriptExtHtmlWebpackPlugin({
       custom: {
         test: /\.js$/,
         attribute: 'crossorigin',
-        value: 'anonymous'
-      }
-    })
-  ]
-}
+        value: 'anonymous',
+      },
+    }),
+  ],
+};
