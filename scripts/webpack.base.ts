@@ -67,7 +67,6 @@ module.exports = {
         }
       ]
     }),
-    new ESBuildPluginDev(),
     new webpack.EnvironmentPlugin({}),
     new ScriptExtHtmlWebpackPlugin({
       custom: {

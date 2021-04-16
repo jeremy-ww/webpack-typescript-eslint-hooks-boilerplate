@@ -93,7 +93,6 @@ module.exports = merge<import('webpack').Configuration>(
       ]
     },
     plugins: [
-      new ESBuildPlugin(),
       new MiniCssExtractPlugin({
         filename: 'assets/css/[name].[contenthash:8].css',
         chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css'
