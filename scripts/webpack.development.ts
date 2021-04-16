@@ -50,7 +50,7 @@ module.exports = merge<import('webpack').Configuration>(base, {
   module: {
     rules: [
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.css$/,
         use: [
           {
             loader: 'style-loader'
@@ -61,10 +61,6 @@ module.exports = merge<import('webpack').Configuration>(base, {
               importLoaders: 1
             }
           },
-          {
-            loader: 'fast-sass-loader',
-            options: {}
-          }
         ]
       }
     ]

@@ -31,6 +31,9 @@ module.exports = {
       'antd'
     ],
     [
+      'babel-plugin-styled-components', { pure: true }
+    ],
+    [
       'module-resolver',
       {
         root: ['./src'],

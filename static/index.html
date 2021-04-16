@@ -14,15 +14,19 @@
         -webkit-font-smoothing: antialiased;
         font-family: sans-serif;
       }
+
+      html, body, #app {
+        height: 100%;
+      }
     </style>
     <% if (process.env.NODE_ENV === 'production') { %>
     <script
       crossorigin="anonymous"
-      src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"
+      src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"
     ></script>
     <script
       crossorigin="anonymous"
-      src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"
+      src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"
     ></script>
     <script
       crossorigin="anonymous"
