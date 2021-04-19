@@ -19,11 +19,26 @@ module.exports = {
     },
   },
   plugins: ['@typescript-eslint', 'react-hooks', 'react'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     semi: ['error', 'never'],
-    'comma-dangle': ['error', 'always'],
+    'comma-dangle': [
+      'error',
+      {
+        arrays: 'never',
+        objects: 'always',
+        imports: 'never',
+        exports: 'never',
+        functions: 'never',
+      },
+    ],
   },
-};
+}

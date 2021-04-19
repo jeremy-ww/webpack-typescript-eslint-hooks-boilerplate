@@ -1,4 +1,4 @@
-import { createSlice, Dispatch, createAsyncThunk, } from '@reduxjs/toolkit'
+import { createSlice, Dispatch, createAsyncThunk } from '@reduxjs/toolkit'
 
 import store from 'src/store'
 
@@ -8,15 +8,15 @@ export const getUser = createAsyncThunk<
   {
     state: ReturnType<typeof store.getState>;
   }
->('getUser', async (template, { dispatch, },) => {
-  await dispatch(getUserAction(),)
-},)
+>('getUser', async (template, { dispatch, }) => {
+  await dispatch(getUserAction())
+})
 
-export const getUserAction = () => async (dispatch: Dispatch,) => {
+export const getUserAction = () => async (dispatch: Dispatch) => {
   /* eslint-disable-next-line */
   // @ts-ignore
-  await { then: (r,) => setTimeout(r, 1000,), }
-  dispatch(setState({ user: 'React Hooks', },),)
+  await { then: (r) => setTimeout(r, 1000), }
+  dispatch(setState({ user: 'React Hooks', }))
 }
 
 const slice = createSlice({
@@ -26,17 +26,17 @@ const slice = createSlice({
     loading: true,
   },
   reducers: {
-    setState: (state, action,) => action.payload,
+    setState: (state, action) => action.payload,
   },
-  extraReducers: (builder,) => {
-    builder.addCase(getUser.pending, (state,) => { state.loading = true },).addCase(getUser.fulfilled, (state,) => {
+  extraReducers: (builder) => {
+    builder.addCase(getUser.pending, (state) => { state.loading = true }).addCase(getUser.fulfilled, (state) => {
         state.loading = false
-      },)
-      .addCase(getUser.rejected, (state,) => {
+      })
+      .addCase(getUser.rejected, (state) => {
         state.loading = false
-      },)
+      })
   },
-},)
+})
 
 export const { setState, } = slice.actions
 export default slice.reducer

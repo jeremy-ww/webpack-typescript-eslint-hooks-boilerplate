@@ -1,14 +1,14 @@
-import { configureStore, } from '@reduxjs/toolkit'
-import { createLogger, } from 'redux-logger'
+import { configureStore } from '@reduxjs/toolkit'
+import { createLogger } from 'redux-logger'
 
 import home from 'src/pages/home/store/slice'
 
-const logger = createLogger({ collapsed: true, },)
+const logger = createLogger({ collapsed: true, })
 
 const store = configureStore({
-  middleware: (getDefaultMiddleware,) => {
+  middleware: (getDefaultMiddleware) => {
     if (process.env.NODE_ENV === 'development') {
-      return getDefaultMiddleware().concat(logger,)
+      return getDefaultMiddleware().concat(logger)
     }
     return getDefaultMiddleware()
   },
@@ -16,7 +16,7 @@ const store = configureStore({
   reducer: {
     home,
   },
-},)
+})
 
 export default store
 

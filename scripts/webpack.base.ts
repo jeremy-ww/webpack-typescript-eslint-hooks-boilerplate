@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin',)
-const { CleanWebpackPlugin, } = require('clean-webpack-plugin',)
-const CopyWebpackPlugin = require('copy-webpack-plugin',)
-const webpack = require('webpack',)
-const path = require('path',)
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const { CleanWebpackPlugin, } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
+const path = require('path')
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, '../dist',),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'assets/js/[name].js',
     publicPath: '/',
     crossOriginLoading: 'anonymous',
     chunkFilename: 'assets/js/[name].chunk.js',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json',],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
     alias: {
-      src: path.resolve(__dirname, '../src',),
+      src: path.resolve(__dirname, '../src'),
     },
   },
   module: {
@@ -37,9 +37,9 @@ module.exports = {
           //   },
           // },
           {
-            loader: require.resolve('babel-loader',),
+            loader: require.resolve('babel-loader'),
             options: {},
-          },
+          }
         ],
       },
       {
@@ -55,7 +55,7 @@ module.exports = {
         generator: {
           filename: 'assets/static/[hash][ext][query]',
         },
-      },
+      }
     ],
   },
   plugins: [
@@ -65,21 +65,21 @@ module.exports = {
         {
           from: 'static',
           globOptions: {
-            ignore: ['**/index.html',],
+            ignore: ['**/index.html'],
           },
           to: '.',
-        },
+        }
       ],
-    },),
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-    },),
+    }),
     new ScriptExtHtmlWebpackPlugin({
       custom: {
         test: /\.js$/,
         attribute: 'crossorigin',
         value: 'anonymous',
       },
-    },),
+    })
   ],
 }
