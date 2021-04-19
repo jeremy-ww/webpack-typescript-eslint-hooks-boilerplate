@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
-const { ESBuildMinifyPlugin, } = require('esbuild-loader')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { GenerateSW, } = require('workbox-webpack-plugin')
-const { merge, } = require('webpack-merge')
+const { GenerateSW } = require('workbox-webpack-plugin')
+const { merge } = require('webpack-merge')
 
 const report = process.argv.includes('--report')
 const base = require('./webpack.base')
 
+// @ts-ignore
 module.exports = merge<import('webpack').Configuration>(
   base,
   /** @type {import('webpack').Configuration} */
@@ -39,9 +40,9 @@ module.exports = merge<import('webpack').Configuration>(
               options: {
                 importLoaders: 1,
               },
-            }
+            },
           ],
-        }
+        },
       ],
     },
     optimization: {
@@ -83,7 +84,7 @@ module.exports = merge<import('webpack').Configuration>(
             },
             mergeLonghand: false,
           },
-        })
+        }),
       ],
     },
     plugins: [
@@ -116,9 +117,9 @@ module.exports = merge<import('webpack').Configuration>(
              * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
              */
             urlPattern: new RegExp('https://unpkg\\.com/.*'),
-          }
+          },
         ],
-      })
+      }),
     ].filter(Boolean),
-  }
+  },
 )

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const { prepareUrls, } = require('react-dev-utils/WebpackDevServerUtils')
+const { prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
 const clearConsole = require('react-dev-utils/clearConsole')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { GenerateSW, } = require('workbox-webpack-plugin')
-const { merge, } = require('webpack-merge')
+const { GenerateSW } = require('workbox-webpack-plugin')
+const { merge } = require('webpack-merge')
 const chalk = require('chalk')
 
 const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin
@@ -28,13 +28,13 @@ class ClearWebpackDevServerMessagePlugin {
     compiler.hooks.done.tapAsync('ClearWebpackDevServerMessagePlugin', async (params, callback) => {
       clearConsole()
       await callback()
-      printInstructions(
-        prepareUrls('http', '0.0.0.0', compiler.options.devServer.port)
-      )
+      // @ts-ignore
+      printInstructions(prepareUrls('http', '0.0.0.0', compiler.options.devServer.port))
     })
   }
 }
 
+// @ts-ignore
 module.exports = merge<import('webpack').Configuration>(base, {
   mode: 'development',
   devtool: 'eval-source-map',
@@ -51,9 +51,9 @@ module.exports = merge<import('webpack').Configuration>(base, {
             options: {
               importLoaders: 1,
             },
-          }
+          },
         ],
-      }
+      },
     ],
   },
   cache: {
@@ -87,6 +87,6 @@ module.exports = merge<import('webpack').Configuration>(base, {
     }),
     new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
-    false && new GenerateSW()
+    false && new GenerateSW(),
   ].filter(Boolean),
 })
