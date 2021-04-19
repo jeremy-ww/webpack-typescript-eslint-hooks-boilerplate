@@ -1,17 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { createLogger } from 'redux-logger'
 
 import home from 'src/pages/home/store/slice'
 
-const logger = createLogger({ collapsed: true, })
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const middlewares: any[] = []
+
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { logger } = require('redux-logger')
+  middlewares.push(logger)
+}
 
 const store = configureStore({
-  middleware: (getDefaultMiddleware) => {
-    if (process.env.NODE_ENV === 'development') {
-      return getDefaultMiddleware().concat(logger)
-    }
-    return getDefaultMiddleware()
-  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
   devTools: process.env.NODE_ENV !== 'production',
   reducer: {
     home,
