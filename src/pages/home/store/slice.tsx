@@ -6,7 +6,7 @@ export const getUser = createAsyncThunk<
   void,
   unknown,
   {
-    state: ReturnType<typeof store.getState>;
+    state: ReturnType<typeof store.getState>
   }
 >('getUser', async (template, { dispatch, }) => {
   await dispatch(getUserAction())
@@ -29,7 +29,11 @@ const slice = createSlice({
     setState: (state, action) => action.payload,
   },
   extraReducers: (builder) => {
-    builder.addCase(getUser.pending, (state) => { state.loading = true }).addCase(getUser.fulfilled, (state) => {
+    builder
+      .addCase(getUser.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(getUser.fulfilled, (state) => {
         state.loading = false
       })
       .addCase(getUser.rejected, (state) => {

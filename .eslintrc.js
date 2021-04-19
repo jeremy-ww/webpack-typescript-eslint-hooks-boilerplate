@@ -7,11 +7,12 @@ module.exports = {
     es6: true,
   },
   parserOptions: {
+    ecmaVersion: 2020,
     project: './tsconfig.json',
     ecmaFeatures: {
       jsx: true,
     },
-    sourceType: 'module',
+    sourceType: "module",
   },
   settings: {
     react: {
@@ -20,11 +21,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react-hooks', 'react'],
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
