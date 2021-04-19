@@ -15,6 +15,7 @@ module.exports = {
     filename: 'assets/js/[name].js',
     publicPath: '/',
     crossOriginLoading: 'anonymous',
+    // NOTE: for non-initial chunk
     chunkFilename: 'assets/js/[name].chunk.js',
   },
   resolve: {

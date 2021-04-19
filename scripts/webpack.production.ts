@@ -18,7 +18,9 @@ module.exports = merge<import('webpack').Configuration>(
     mode: 'production',
     bail: true,
     output: {
+      // TODO: If we changed the order of imports, contenthash is different
       filename: 'assets/js/[name].[contenthash:8].js',
+      // NOTE: for non-initial chunk
       chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
     },
     devtool: 'hidden-source-map',
@@ -68,7 +70,7 @@ module.exports = merge<import('webpack').Configuration>(
         maxAsyncRequests: Infinity,
         maxInitialRequests: Infinity,
       },
-      mergeDuplicateChunks: true,
+      // mergeDuplicateChunks: true,
       runtimeChunk: true,
       minimize: true,
       minimizer: [

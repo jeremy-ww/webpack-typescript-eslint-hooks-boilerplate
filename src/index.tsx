@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
         wb.addEventListener('controlling', () => {
           window.location.reload()
         })
-        wb.messageSW({ type: 'SKIP_WAITING', })
+        wb.messageSW({ type: 'SKIP_WAITING' })
       }
     })
     wb.register()
