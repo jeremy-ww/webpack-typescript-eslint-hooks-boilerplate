@@ -19,9 +19,9 @@ module.exports = {
      */
     '@babel/plugin-proposal-nullish-coalescing-operator',
     '@babel/plugin-proposal-optional-chaining',
-    ['@babel/plugin-proposal-decorators', { legacy: true }],
-    ['@babel/plugin-proposal-class-properties', { loose: true }],
-    ['@babel/plugin-syntax-dynamic-import'],
+    ['@babel/plugin-proposal-decorators', { legacy: true, },],
+    ['@babel/plugin-proposal-class-properties', { loose: true, },],
+    ['@babel/plugin-syntax-dynamic-import',],
     [
       'import',
       {
@@ -30,16 +30,16 @@ module.exports = {
       },
       'antd',
     ],
-    ['babel-plugin-styled-components', { pure: true }],
+    ['babel-plugin-styled-components', { pure: true, },],
     [
       'module-resolver',
       {
-        root: ['./src'],
+        root: ['./src',],
         alias: {
           src: './src',
           misc: './misc',
         },
       },
     ],
-  ].filter(Boolean),
-};
+  ].filter(Boolean,),
+}

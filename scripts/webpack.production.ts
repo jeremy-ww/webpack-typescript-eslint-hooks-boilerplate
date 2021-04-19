@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin');
-const { ESBuildMinifyPlugin } = require('esbuild-loader');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
-const { merge } = require('webpack-merge');
+const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin',)
+const { ESBuildMinifyPlugin, } = require('esbuild-loader',)
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer',).BundleAnalyzerPlugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin',)
+const HtmlWebpackPlugin = require('html-webpack-plugin',)
+const { GenerateSW, } = require('workbox-webpack-plugin',)
+const { merge, } = require('webpack-merge',)
 
-const report = process.argv.includes('--report');
-const base = require('./webpack.base');
+const report = process.argv.includes('--report',)
+const base = require('./webpack.base',)
 
 module.exports = merge<import('webpack').Configuration>(
   base,
@@ -73,7 +73,7 @@ module.exports = merge<import('webpack').Configuration>(
       minimizer: [
         new ESBuildMinifyPlugin({
           target: 'es2015', // Syntax to compile to (see options below for possible values)
-        }),
+        },),
         new OptimizeCssnanoPlugin({
           sourceMap: false,
           cssnanoOptions: {
@@ -83,14 +83,14 @@ module.exports = merge<import('webpack').Configuration>(
             },
             mergeLonghand: false,
           },
-        }),
+        },),
       ],
     },
     plugins: [
       new MiniCssExtractPlugin({
         filename: 'assets/css/[name].[contenthash:8].css',
         chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
-      }),
+      },),
       new HtmlWebpackPlugin({
         template: './static/index.html',
         minify: {
@@ -105,7 +105,7 @@ module.exports = merge<import('webpack').Configuration>(
           minifyCSS: true,
           minifyURLs: true,
         },
-      }),
+      },),
       report && new BundleAnalyzerPlugin(),
       new GenerateSW({
         inlineWorkboxRuntime: true,
@@ -115,10 +115,10 @@ module.exports = merge<import('webpack').Configuration>(
             /**
              * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
              */
-            urlPattern: new RegExp('https://unpkg\\.com/.*'),
+            urlPattern: new RegExp('https://unpkg\\.com/.*',),
           },
         ],
-      }),
-    ].filter(Boolean),
+      },),
+    ].filter(Boolean,),
   },
-);
+)

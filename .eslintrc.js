@@ -8,7 +8,6 @@ module.exports = {
   },
   parserOptions: {
     project: './tsconfig.json',
-    ecmaVersion: 2019,
     ecmaFeatures: {
       jsx: true,
     },
@@ -16,12 +15,15 @@ module.exports = {
   },
   settings: {
     react: {
-      version: 'latest',
+      version: 'detect',
     },
   },
+  plugins: ['@typescript-eslint', 'react-hooks', 'react'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  plugins: ['@typescript-eslint', 'react'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+    semi: ['error', 'never'],
+    'comma-dangle': ['error', 'always'],
   },
 };
