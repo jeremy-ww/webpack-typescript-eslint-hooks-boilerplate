@@ -59,6 +59,8 @@
     "clean-webpack-plugin": "4.0.0-alpha.0",
     "copy-webpack-plugin": "8.1.1",
     "css-loader": "5.2.1",
+    "dotenv-webpack": "7.0.2",
+    "duplicate-package-checker-webpack-plugin": "3.0.0",
     "esbuild-loader": "2.12.0",
     "eslint": "7.24.0",
     "eslint-config-prettier": "8.2.0",

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 const { CleanWebpackPlugin, } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -74,6 +76,12 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
     }),
+    new DuplicatePackageCheckerPlugin({
+      exclude(instance: { name: string }) {
+        return ['webpack', 'querystring'].includes(instance.name);
+      }
+    }),
+    new Dotenv(),
     new ScriptExtHtmlWebpackPlugin({
       custom: {
         test: /\.js$/,
