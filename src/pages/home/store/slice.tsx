@@ -1,30 +1,28 @@
-import { createSlice, Dispatch, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, Dispatch, createAsyncThunk } from '@reduxjs/toolkit';
 
-import store from "src/store";
+import store from 'src/store';
 
 export const getUser = createAsyncThunk<
   void,
-  {},
+  unknown,
   {
     state: ReturnType<typeof store.getState>;
   }
->("getUser", async (template, { dispatch }) => {
+>('getUser', async (template, { dispatch }) => {
   await dispatch(getUserAction());
 });
 
-export const getUserAction = () => async (
-  dispatch: Dispatch,
-  getState: typeof store.getState
-) => {
+export const getUserAction = () => async (dispatch: Dispatch) => {
+  /* eslint-disable-next-line*/
   // @ts-ignore
   await { then: (r) => setTimeout(r, 1000) };
-  dispatch(setState({ user: "React Hooks" }));
+  dispatch(setState({ user: 'React Hooks' }));
 };
 
 const slice = createSlice({
-  name: "Home",
+  name: 'Home',
   initialState: {
-    user: "",
+    user: '',
     loading: true,
   },
   reducers: {
@@ -33,11 +31,7 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(getUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getUser.fulfilled, (state) => {
+    builder.addCase(getUser.pending, (state) => { state.loading = true; }).addCase(getUser.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(getUser.rejected, (state) => {

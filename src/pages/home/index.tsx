@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { getUserAction } from './store/slice';
-import { RootState } from 'src/store/';
-import icon from 'src/assets/icon-square-big.png';
-import { Hello } from './index.css';
+import { getUserAction } from './store/slice'
+import { RootState } from 'src/store/'
+import icon from 'src/assets/icon-square-big.png'
+import { Hello } from './index.css'
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const home = useSelector((store: RootState) => store.home);
+  const dispatch = useDispatch()
+  const home = useSelector((store: RootState) => store.home)
 
   useEffect(() => {
-    dispatch(getUserAction());
-  }, []);
+    dispatch(getUserAction())
+  }, [])
 
   return (
     <Hello>
@@ -25,5 +25,5 @@ export default function Home() {
         </>
       )}
     </Hello>
-  );
+  )
 }
