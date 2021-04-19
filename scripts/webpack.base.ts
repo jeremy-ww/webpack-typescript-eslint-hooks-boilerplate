@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
-const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
-const { CleanWebpackPlugin, } = require('clean-webpack-plugin')
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
@@ -41,7 +41,7 @@ module.exports = {
           {
             loader: require.resolve('babel-loader'),
             options: {},
-          }
+          },
         ],
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
         generator: {
           filename: 'assets/static/[hash][ext][query]',
         },
-      }
+      },
     ],
   },
   plugins: [
@@ -70,7 +70,7 @@ module.exports = {
             ignore: ['**/index.html'],
           },
           to: '.',
-        }
+        },
       ],
     }),
     new webpack.EnvironmentPlugin({
@@ -78,8 +78,8 @@ module.exports = {
     }),
     new DuplicatePackageCheckerPlugin({
       exclude(instance: { name: string }) {
-        return ['webpack', 'querystring'].includes(instance.name);
-      }
+        return ['webpack', 'querystring'].includes(instance.name)
+      },
     }),
     new Dotenv(),
     new ScriptExtHtmlWebpackPlugin({
@@ -88,6 +88,6 @@ module.exports = {
         attribute: 'crossorigin',
         value: 'anonymous',
       },
-    })
+    }),
   ],
 }
