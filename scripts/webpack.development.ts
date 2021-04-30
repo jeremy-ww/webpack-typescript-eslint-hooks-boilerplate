@@ -7,6 +7,9 @@ import { merge } from 'webpack-merge'
 import webpack from 'webpack'
 import chalk from 'chalk'
 
+// just in case you run into any typescript error when configuring `devServer`
+import type devServer from 'webpack-dev-server'
+
 const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin
 
 import base from './webpack.base'
@@ -32,7 +35,7 @@ class ClearWebpackDevServerMessagePlugin {
   }
 }
 
-const config: webpack.Configuration = {
+const config: webpack.Configuration & { devServer: devServer.Configuration } = {
   mode: 'development',
   devtool: 'eval-source-map',
   module: {
@@ -59,7 +62,6 @@ const config: webpack.Configuration = {
       config: [__filename],
     },
   },
-  // @ts-ignore
   devServer: {
     hot: true,
     port: 4000,

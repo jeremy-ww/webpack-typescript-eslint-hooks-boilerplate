@@ -5,7 +5,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { GenerateSW } from 'workbox-webpack-plugin'
 import { merge } from 'webpack-merge'
-import webpack from 'webpack'
+import type webpack from 'webpack'
 
 import base from './webpack.base'
 

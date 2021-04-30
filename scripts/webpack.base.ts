@@ -3,7 +3,7 @@ import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plu
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
-import webpack from 'webpack'
+import type webpack from 'webpack'
 import path from 'path'
 
 const config: webpack.Configuration = {
