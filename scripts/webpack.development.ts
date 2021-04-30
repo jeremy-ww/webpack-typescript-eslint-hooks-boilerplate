@@ -89,7 +89,7 @@ const config: webpack.Configuration = {
     new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     false && new GenerateSW(),
-  ].filter((v): v is any => Boolean(v)),
+  ].filter((v): v is webpack.WebpackPluginInstance => Boolean(v)),
 }
 
 export default merge(base, config)

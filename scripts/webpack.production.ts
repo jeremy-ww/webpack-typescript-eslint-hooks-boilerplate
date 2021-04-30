@@ -154,7 +154,7 @@ const config: webpack.Configuration = {
         },
       ],
     }),
-  ].filter(Boolean),
+  ].filter((v): v is webpack.WebpackPluginInstance => Boolean(v)),
 }
 
 export default merge<import('webpack').Configuration>(base, config)
