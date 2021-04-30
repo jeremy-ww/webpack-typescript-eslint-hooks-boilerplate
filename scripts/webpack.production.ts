@@ -1,6 +1,6 @@
 import OptimizeCssnanoPlugin from '@intervolga/optimize-cssnano-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { GenerateSW } from 'workbox-webpack-plugin'
