@@ -7,9 +7,6 @@ import { merge } from 'webpack-merge'
 import webpack from 'webpack'
 import chalk from 'chalk'
 
-// just in case you run into any typescript error when configuring `devServer`
-import 'webpack-dev-server'
-
 const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin
 
 import base from './webpack.base'
