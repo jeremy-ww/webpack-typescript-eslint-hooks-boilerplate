@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
-const webpack = require('webpack')
-const path = require('path')
+import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
+import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import Dotenv from 'dotenv-webpack'
+import webpack from 'webpack'
+import path from 'path'
 
-/** @type {import('webpack').Configuration} */
-module.exports = {
+const config: webpack.Configuration = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -63,6 +61,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    // @ts-ignore
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -77,12 +76,15 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
     }),
+    // @ts-ignore
     new DuplicatePackageCheckerPlugin({
       exclude(instance: { name: string }) {
         return ['webpack', 'querystring'].includes(instance.name)
       },
     }),
+    // @ts-ignore
     new Dotenv(),
+    // @ts-ignore
     new ScriptExtHtmlWebpackPlugin({
       custom: {
         test: /\.js$/,
@@ -92,3 +94,5 @@ module.exports = {
     }),
   ],
 }
+
+export default config

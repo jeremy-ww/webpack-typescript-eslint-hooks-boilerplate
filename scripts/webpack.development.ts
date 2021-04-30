@@ -1,17 +1,18 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const { prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
-const clearConsole = require('react-dev-utils/clearConsole')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { GenerateSW } = require('workbox-webpack-plugin')
-const { merge } = require('webpack-merge')
-const chalk = require('chalk')
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import { prepareUrls } from 'react-dev-utils/WebpackDevServerUtils'
+import clearConsole from 'react-dev-utils/clearConsole'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { GenerateSW } from 'workbox-webpack-plugin'
+import { merge } from 'webpack-merge'
+import webpack from 'webpack'
+import chalk from 'chalk'
 
-const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin
+// just in case you run into any typescript error when configuring `devServer`
+import 'webpack-dev-server'
 
-type Compiler = import('webpack').Compiler
+const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin
 
-const base = require('./webpack.base')
+import base from './webpack.base'
 
 function printInstructions(urls: { localUrlForTerminal: string; lanUrlForTerminal: string }) {
   console.log()
@@ -24,7 +25,7 @@ function printInstructions(urls: { localUrlForTerminal: string; lanUrlForTermina
 }
 
 class ClearWebpackDevServerMessagePlugin {
-  apply(compiler: Compiler) {
+  apply(compiler: webpack.Compiler) {
     compiler.hooks.done.tapAsync('ClearWebpackDevServerMessagePlugin', async (params, callback) => {
       clearConsole()
       await callback()
@@ -34,8 +35,7 @@ class ClearWebpackDevServerMessagePlugin {
   }
 }
 
-// @ts-ignore
-module.exports = merge<import('webpack').Configuration>(base, {
+const config: webpack.Configuration = {
   mode: 'development',
   devtool: 'eval-source-map',
   module: {
@@ -62,6 +62,7 @@ module.exports = merge<import('webpack').Configuration>(base, {
       config: [__filename],
     },
   },
+  // @ts-ignore
   devServer: {
     hot: true,
     port: 4000,
@@ -88,5 +89,7 @@ module.exports = merge<import('webpack').Configuration>(base, {
     new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     false && new GenerateSW(),
-  ].filter(Boolean),
-})
+  ].filter((v): v is any => Boolean(v)),
+}
+
+export default merge(base, config)
