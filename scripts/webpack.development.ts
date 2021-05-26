@@ -14,9 +14,11 @@ const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin
 
 import base from './webpack.base'
 
-function printInstructions(urls: { localUrlForTerminal: string; lanUrlForTerminal: string }) {
+function printInstructions(urls: { localUrlForTerminal: string; lanUrlForTerminal?: string }) {
   console.log()
-  console.log(chalk.bold(chalk.green(`You can now view it in the browser.`)))
+  console.log(
+    chalk.bold(chalk.green(`You can now view ${require('../package.json').name} in the browser.`)),
+  )
   console.log()
 
   console.log(`  ${chalk.bold('Local:')}            ${urls.localUrlForTerminal}`)
@@ -29,8 +31,7 @@ class ClearWebpackDevServerMessagePlugin {
     compiler.hooks.done.tapAsync('ClearWebpackDevServerMessagePlugin', async (params, callback) => {
       clearConsole()
       await callback()
-      // @ts-ignore
-      printInstructions(prepareUrls('http', '0.0.0.0', compiler.options.devServer.port))
+      printInstructions(prepareUrls('http', '0.0.0.0', compiler.options.devServer?.port))
     })
   }
 }
@@ -41,18 +42,8 @@ const config: webpack.Configuration & { devServer: devServer.Configuration } = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-            },
-          },
-        ],
+        test: /\.css$/i,
+        use: ['style-loader', { loader: 'css-loader', options: { sourceMap: false } }],
       },
     ],
   },
@@ -65,28 +56,33 @@ const config: webpack.Configuration & { devServer: devServer.Configuration } = {
   devServer: {
     hot: true,
     port: 4000,
-    clientLogLevel: 'warning',
     disableHostCheck: true,
     transportMode: 'ws',
     injectClient: true,
     historyApiFallback: {
       disableDotRule: true,
     },
+    // NOTE: use this for debugging
+    // stats: 'verbose',
     overlay: {
       errors: true,
     },
-    watchOptions: {
-      ignored: ['../node_modules/'],
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
     },
   },
   plugins: [
     new ClearWebpackDevServerMessagePlugin(),
     new HtmlWebpackPlugin({
       title: require('../package.json').name,
-      template: './static/index.html',
+      template: './public/index.html',
     }),
     new HotModuleReplacementPlugin(),
-    new ReactRefreshWebpackPlugin(),
+    new ReactRefreshWebpackPlugin({
+      overlay: false,
+    }),
     false && new GenerateSW(),
   ].filter((v): v is webpack.WebpackPluginInstance => Boolean(v)),
 }

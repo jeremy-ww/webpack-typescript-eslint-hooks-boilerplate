@@ -1,15 +1,17 @@
 import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
 import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
-import type webpack from 'webpack'
+import webpack from 'webpack'
+import dotenv from 'dotenv'
 import path from 'path'
+
+dotenv.config()
 
 const config: webpack.Configuration = {
   entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../build'),
     filename: 'assets/js/[name].js',
     publicPath: '/',
     crossOriginLoading: 'anonymous',
@@ -17,18 +19,20 @@ const config: webpack.Configuration = {
     chunkFilename: 'assets/js/[name].chunk.js',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
       src: path.resolve(__dirname, '../src'),
     },
   },
   module: {
+    strictExportPresence: true,
     rules: [
       {
         test: /\.(t|j)sx?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(@eureka\/ui-components)\/).*/,
         use: [
-          // TODO: esbuild with hot reload
+          'thread-loader',
+          // TODO: I don't know how to integrate esbuild with hot reload.
           // {
           //   use: "esbuild-loader",
           //   options: {
@@ -38,7 +42,7 @@ const config: webpack.Configuration = {
           //   },
           // },
           {
-            loader: require.resolve('babel-loader'),
+            loader: 'babel-loader',
             options: {},
           },
         ],
@@ -60,12 +64,10 @@ const config: webpack.Configuration = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    // @ts-ignore
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'static',
+          from: 'public',
           globOptions: {
             ignore: ['**/index.html'],
           },
@@ -75,16 +77,14 @@ const config: webpack.Configuration = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      REACT_APP_NAME: require('../package.json').name,
     }),
-    // @ts-ignore
     new DuplicatePackageCheckerPlugin({
       exclude(instance: { name: string }) {
         return ['webpack', 'querystring'].includes(instance.name)
       },
-    }),
-    // @ts-ignore
+    }) as any,
     new Dotenv(),
-    // @ts-ignore
     new ScriptExtHtmlWebpackPlugin({
       custom: {
         test: /\.js$/,

@@ -1,5 +1,7 @@
 **/node_modules/**
 **/*.d.ts
 dist/
+build/
 scripts/
 .eslintrc.js
+**/model/

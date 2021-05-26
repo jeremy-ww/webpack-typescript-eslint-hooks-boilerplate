@@ -5,20 +5,17 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
+    container: cypress/browsers:node12.18.3-chrome87-ff82
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: yarn install, build
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: yarn run, build, test
+        uses: cypress-io/github-action@v2
         run: |
           yarn install
           yarn run build
+          yarn run cy:test:ci
         env:
           CI: true
