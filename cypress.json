@@ -1,0 +1,13 @@
+{
+  "chromeWebSecurity": false,
+  "includeShadowDom": true,
+  "video": false,
+  "screenshotOnRunFailure": false,
+  "retries": 0,
+  "redirectionLimit": 0,
+  "defaultCommandTimeout": 99999,
+  "component": {
+    "testFiles": "**/*.test.tsx",
+    "componentFolder": "src"
+  }
+}
