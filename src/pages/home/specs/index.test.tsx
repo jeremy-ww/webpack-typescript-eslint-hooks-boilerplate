@@ -10,7 +10,7 @@ const mockStore = configureStore()
 describe('Home', () => {
   it('render no error', () => {
     mount(
-      <Provider store={mockStore}>
+      <Provider store={mockStore()}>
         <Home />
       </Provider>,
     )
