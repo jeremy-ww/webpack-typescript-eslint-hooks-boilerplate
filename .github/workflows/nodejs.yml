@@ -6,13 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
+    options: --user 1001
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       
       - name: yarn run, build, test
-        uses: cypress-io/github-action@v2
         run: |
           yarn install
           yarn run build
