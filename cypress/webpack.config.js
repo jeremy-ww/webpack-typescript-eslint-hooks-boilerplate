@@ -1,10 +1,10 @@
 // @ts-check
-const path = require('path');
-const webpack = require('webpack');
-const dotenv = require('dotenv');
-const Dotenv = require('dotenv-webpack');
+const path = require('path')
+const webpack = require('webpack')
+const dotenv = require('dotenv')
+const Dotenv = require('dotenv-webpack')
 
-dotenv.config();
+dotenv.config()
 
 // https://github.com/cypress-io/cypress/issues/15864#issuecomment-832378600
 
@@ -15,8 +15,8 @@ const config = {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
     alias: {
       cypress: path.resolve(__dirname, '.'),
-      src: path.resolve(__dirname, '../src')
-    }
+      src: path.resolve(__dirname, '../src'),
+    },
   },
   module: {
     rules: [
@@ -28,37 +28,38 @@ const config = {
         use: [
           {
             loader: require.resolve('babel-loader'),
-            options: {}
-          }
-        ]
+            options: {},
+          },
+        ],
       },
       {
         test: /\.less$/i,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/static/[hash][ext][query]'
-        }
+          filename: 'assets/static/[hash][ext][query]',
+        },
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/static/[hash][ext][query]'
-        }
-      }
-    ]
+          filename: 'assets/static/[hash][ext][query]',
+        },
+      },
+    ],
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'test',
-      REACT_APP_NAME: require('../package.json').name
+      // seems that cypress-webpack will do this
+      // NODE_ENV: 'test',
+      REACT_APP_NAME: require('../package.json').name,
     }),
-    new Dotenv()
-  ]
-};
+    new Dotenv(),
+  ],
+}
 
-module.exports = config;
+module.exports = config
