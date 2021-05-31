@@ -121,19 +121,5 @@
       "not ie_mob > 0"
     ]
   },
-  "nyc": {
-    "all": true,
-    "exclude": [
-      "src/**/__tests__/"
-    ],
-    "include": [
-      "src"
-    ],
-    "reporter": [
-      "html",
-      "lcov",
-      "text"
-    ]
-  },
   "license": "MIT"
 }
