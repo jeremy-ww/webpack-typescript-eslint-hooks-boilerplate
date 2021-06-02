@@ -1,8 +1,8 @@
 // @ts-check
-const path = require('path')
 const webpack = require('webpack')
 const dotenv = require('dotenv')
 const Dotenv = require('dotenv-webpack')
+const excludeNodeModulesForAllOS = require('../scripts/exclude-node-module')
 
 dotenv.config()
 
@@ -18,15 +18,16 @@ const config = {
     rules: [
       {
         test: /\.(js|jsx|mjs|ts|tsx)$/,
-        exclude: function (modulePath) {
-          return (
-            /node_modules/.test(modulePath) &&
-            !/node_modules\/@eureka/.test(modulePath) &&
-            !/node_modules\/@ui5/.test(modulePath) &&
-            // NOTE: we need to mock react-redux in cypress
-            !/node_modules\/react-redux/.test(modulePath)
-          )
-        },
+        exclude: excludeNodeModulesForAllOS(['@eureka', '@ui5', 'react-redux']),
+        // exclude: function (modulePath) {
+        //   return (
+        //     /node_modules/.test(modulePath) &&
+        //     !/node_modules\/@eureka/.test(modulePath) &&
+        //     !/node_modules\/@ui5/.test(modulePath) &&
+        //     // NOTE: we need to mock react-redux in cypress
+        //     !/node_modules\/react-redux/.test(modulePath)
+        //   )
+        // },
         use: [
           {
             loader: require.resolve('babel-loader'),

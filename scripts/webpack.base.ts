@@ -1,5 +1,6 @@
 import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
 import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin'
+const excludeNodeModulesForAllOS = require('./exclude-node-module')
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
 import webpack from 'webpack'
@@ -26,13 +27,14 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.(t|j)sx?$/,
-        exclude: function (modulePath) {
-          return (
-            /node_modules/.test(modulePath) &&
-            !/node_modules\/@eureka/.test(modulePath) &&
-            !/node_modules\/@ui5/.test(modulePath)
-          )
-        },
+        exclude: excludeNodeModulesForAllOS(['@eureka', '@ui5']),
+        // exclude: function (modulePath) {
+        //   return (
+        //     /node_modules/.test(modulePath) &&
+        //     !/node_modules\/@eureka/.test(modulePath) &&
+        //     !/node_modules\/@ui5/.test(modulePath)
+        //   )
+        // },
         use: [
           'thread-loader',
           // TODO: I don't know how to integrate esbuild with hot reload.
