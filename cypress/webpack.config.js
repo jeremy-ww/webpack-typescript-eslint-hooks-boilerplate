@@ -21,10 +21,16 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(t|j)sx?$/,
-        // NOTE: negative impact on performance, but we are depend on it to implement mocking imports.
-        // @see https://github.com/cypress-io/cypress/tree/develop/npm/react/cypress/component/advanced/mocking-imports
-        exclude: /node_modules\/(lodash|@eureka\/ui-components|react-dom|@babel\/runtime|lit-html)/,
+        test: /\.(js|jsx|mjs|ts|tsx)$/,
+        exclude: function (modulePath) {
+          return (
+            /node_modules/.test(modulePath) &&
+            !/node_modules\/@eureka/.test(modulePath) &&
+            !/node_modules\/@ui5/.test(modulePath) &&
+            // NOTE: we need to mock react-redux in cypress
+            !/node_modules\/react-redux/.test(modulePath)
+          )
+        },
         use: [
           {
             loader: require.resolve('babel-loader'),

@@ -29,7 +29,13 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.(t|j)sx?$/,
-        exclude: /node_modules\/(?!(@eureka\/ui-components)\/).*/,
+        exclude: function (modulePath) {
+          return (
+            /node_modules/.test(modulePath) &&
+            !/node_modules\/@eureka/.test(modulePath) &&
+            !/node_modules\/@ui5/.test(modulePath)
+          )
+        },
         use: [
           'thread-loader',
           // TODO: I don't know how to integrate esbuild with hot reload.
