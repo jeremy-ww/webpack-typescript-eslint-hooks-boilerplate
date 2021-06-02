@@ -104,6 +104,8 @@ const config: webpack.Configuration = {
   },
   plugins: [
     new MiniCssExtractPlugin({
+      // https://github.com/webpack-contrib/mini-css-extract-plugin#hot-module-reloading-hmr
+      hmr: false,
       filename: 'assets/css/[name].[contenthash:8].css',
       chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
     }) as any,
