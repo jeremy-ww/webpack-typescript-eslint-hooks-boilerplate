@@ -6,7 +6,7 @@ module.exports = {
       {
         useBuiltIns: 'usage',
         corejs: 3,
-        exclude: ['@babel/plugin-transform-regenerator'],
+        exclude: [],
       },
     ],
     ['@babel/preset-react', { runtime: 'automatic' }],
