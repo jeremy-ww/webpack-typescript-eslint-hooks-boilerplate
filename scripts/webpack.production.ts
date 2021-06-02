@@ -26,7 +26,15 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { sourceMap: false } }],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // https://github.com/webpack-contrib/mini-css-extract-plugin#hot-module-reloading-hmr
+              hmr: false,
+            }
+          },
+          { loader: 'css-loader', options: { sourceMap: false } }],
       },
     ],
   },
@@ -104,8 +112,6 @@ const config: webpack.Configuration = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      // https://github.com/webpack-contrib/mini-css-extract-plugin#hot-module-reloading-hmr
-      hmr: false,
       filename: 'assets/css/[name].[contenthash:8].css',
       chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
     }) as any,
@@ -126,18 +132,18 @@ const config: webpack.Configuration = {
     }),
     report && new BundleAnalyzerPlugin(),
     false &&
-      new GenerateSW({
-        inlineWorkboxRuntime: true,
-        runtimeCaching: [
-          {
-            handler: 'CacheFirst',
-            /**
-             * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
-             */
-            urlPattern: new RegExp('https://unpkg\\.com/.*'),
-          },
-        ],
-      }),
+    new GenerateSW({
+      inlineWorkboxRuntime: true,
+      runtimeCaching: [
+        {
+          handler: 'CacheFirst',
+          /**
+           * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
+           */
+          urlPattern: new RegExp('https://unpkg\\.com/.*'),
+        },
+      ],
+    }),
   ].filter((v): v is webpack.WebpackPluginInstance => Boolean(v)),
 }
 
