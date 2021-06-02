@@ -13,10 +13,6 @@ const config = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-    alias: {
-      cypress: path.resolve(__dirname, '.'),
-      src: path.resolve(__dirname, '../src'),
-    },
   },
   module: {
     rules: [
