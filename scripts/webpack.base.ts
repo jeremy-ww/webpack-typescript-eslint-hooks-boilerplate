@@ -23,6 +23,7 @@ const config: webpack.Configuration = {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   module: {
+    noParse: /react|react-dom/,
     strictExportPresence: true,
     rules: [
       {
