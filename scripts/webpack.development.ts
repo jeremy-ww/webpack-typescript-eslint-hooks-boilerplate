@@ -65,6 +65,7 @@ const config: webpack.Configuration & { devServer: devServer.Configuration } = {
     historyApiFallback: {
       disableDotRule: true,
     },
+    compress: true,
     // NOTE: use this for debugging
     // stats: 'verbose',
     overlay: {
