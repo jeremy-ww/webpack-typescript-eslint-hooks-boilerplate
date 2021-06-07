@@ -32,9 +32,10 @@ const config: webpack.Configuration = {
             options: {
               // https://github.com/webpack-contrib/mini-css-extract-plugin#hot-module-reloading-hmr
               hmr: false,
-            }
+            },
           },
-          { loader: 'css-loader', options: { sourceMap: false } }],
+          { loader: 'css-loader', options: { sourceMap: false } },
+        ],
       },
     ],
   },
@@ -132,19 +133,32 @@ const config: webpack.Configuration = {
     }),
     report && new BundleAnalyzerPlugin(),
     false &&
-    new GenerateSW({
-      inlineWorkboxRuntime: true,
-      runtimeCaching: [
-        {
-          handler: 'CacheFirst',
-          /**
-           * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
-           */
-          urlPattern: new RegExp('https://unpkg\\.com/.*'),
-        },
-      ],
-    }),
+      new GenerateSW({
+        inlineWorkboxRuntime: true,
+        runtimeCaching: [
+          {
+            handler: 'CacheFirst',
+            /**
+             * @see https://developers.google.com/web/tools/workbox/modules/workbox-routing
+             */
+            urlPattern: new RegExp('https://unpkg\\.com/.*'),
+          },
+        ],
+      }),
   ].filter((v): v is webpack.WebpackPluginInstance => Boolean(v)),
 }
 
-export default merge<import('webpack').Configuration>(base, config)
+const mergedConfig = merge<import('webpack').Configuration>(base, config)
+
+export default [
+  mergedConfig,
+  // merge(mergedConfig, {
+  //   experiments: {
+  //     outputModule: true,
+  //   },
+
+  //   output: {
+  //     module: true,
+  //   },
+  // }),
+]
