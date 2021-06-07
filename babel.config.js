@@ -7,6 +7,9 @@ module.exports = {
         useBuiltIns: 'usage',
         corejs: 3,
         exclude: [],
+        // targets: {
+        //   esmodules: true,
+        // },
       },
     ],
     ['@babel/preset-react', { runtime: 'automatic', importSource: '@emotion/react' }],
