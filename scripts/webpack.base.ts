@@ -25,6 +25,11 @@ const config: webpack.Configuration = {
   module: {
     noParse: /react|react-dom/,
     strictExportPresence: true,
+    generator: {
+      asset: {
+        filename: 'assets/static/[hash][ext][query]',
+      },
+    },
     rules: [
       {
         test: /\.(t|j)sx?$/,
@@ -56,16 +61,10 @@ const config: webpack.Configuration = {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/static/[hash][ext][query]',
-        },
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/static/[hash][ext][query]',
-        },
       },
     ],
   },
